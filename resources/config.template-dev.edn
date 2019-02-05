@@ -1,0 +1,9 @@
+{:telegram     {:token "-- create your own bot token --"}
+ :database     {:db-host   "localhost"
+                :db-port   15432
+                :db-name   "whosin_dev"
+                :pool-name "whosin"
+                :pool-size 10
+                :username  "whosin"
+                :password  "p@ssw0rd"}
+ :nrepl-server {:port 9011}}
