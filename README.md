@@ -19,11 +19,32 @@ This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot)
 
         docker-compose up db
         
-5. Run the app locally:
+5. Apply database migrations:
+
+        lein run -- --db:migrate
+        
+6. Run the app locally:
 
         lein run
         
 
+## Run from JAR
+1. Make sure `resources/config.edn` has the correct values.
+2. Build the JAR:
+
+        lein uberjar
+
+    The JAR will be saved in `target/uberjar/whosin-[version]-standalone.jar`.
+    
+3. Apply database migrations:
+       
+        java -jar target/uberjar/whosin-0.1.0-SNAPSHOT-standalone.jar --db:migrate
+ 
+4. Run the app:        
+       
+        java -jar target/uberjar/whosin-0.1.0-SNAPSHOT-standalone.jar
+        
+         
 ## Usage
 Refer to the original [WhosInBot](https://github.com/col/whos_in_bot/blob/master/README.md) for the full description.
 
