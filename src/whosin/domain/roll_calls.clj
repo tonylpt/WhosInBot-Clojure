@@ -73,6 +73,7 @@
      :responses (roll-call-responses (:id roll-call))}))
 
 (defn set-roll-call-attendance!
+  ^RollCallResponse
   [chat-id ^Keyword status user-id user-name reason]
   (some-> (db-roll-calls/get-current chat-id)
           (:id)
@@ -80,6 +81,7 @@
           (db-res->RollCallResponse)))
 
 (defn set-roll-call-attendance-for!
+  ^RollCallResponse
   [chat-id ^Keyword status user-name reason]
   (some-> (db-roll-calls/get-current chat-id)
           (:id)

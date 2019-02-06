@@ -23,8 +23,7 @@
                        (order-by [:updated-at :asc])
                        (sql/format))
                    util/jdbc-query-opts)
-       (sort-by :updated-at)
-       (map #(clojure.core/update % :status keyword))))
+       (sort-by :updated-at)))
 
 (defn- set-attendance*
   [{:keys [roll-call-id
