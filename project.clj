@@ -1,9 +1,8 @@
-(defproject whosin "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
-  :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url  "http://www.eclipse.org/legal/epl-v10.html"}
+(defn- uberjar-name []
+  (str "whosin" (some->> (System/getenv "TRAVIS_BUILD_NUMBER") (str "-")) ".jar"))
 
+(defproject whosin "0.1.0"
+  :url "https://github.com/tonylpt/whosinbot-clojure"
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/tools.cli "0.4.1"]
                  [org.clojure/tools.logging "0.4.1"]
@@ -36,5 +35,6 @@
             "rollback" ["run" "--" "--rollback"]}
 
   :main ^:skip-aot whosin.core
+  :uberjar-name ~(uberjar-name)
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
