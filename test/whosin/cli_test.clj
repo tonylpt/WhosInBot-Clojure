@@ -8,11 +8,11 @@
                                                  (filter #(not (string/blank? %))))))]
     (testing "returns action when there is no input error"
       (are [o i] (= o (parse-str-args i))
-                 {:action :migrate} "--db:migrate"
-                 {:action :rollback} "--db:rollback"
+                 {:action :migrate} "--migrate"
+                 {:action :rollback} "--rollback"
                  {:action :start} ""))
     (testing "returns error when both migrate and rollback flags are specified"
-      (is (not= nil (:exit (parse-str-args "--db:migrate --db:rollback")))))
+      (is (not= nil (:exit (parse-str-args "--migrate --rollback")))))
     (testing "returns error when an argument is passed"
       (is (not= nil (:exit (parse-str-args "argument")))))
     (testing "returns error when there is error parsing input"

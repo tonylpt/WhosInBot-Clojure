@@ -32,8 +32,8 @@
   :injections [(require 'pjstadig.humane-test-output)
                (pjstadig.humane-test-output/activate!)]
 
-  :aliases {"migrate"  ["run" "--" "--db:migrate"]
-            "rollback" ["run" "--" "--db:rollback"]}
+  :aliases {"migrate"  ["run" "--" "--migrate"]
+            "rollback" ["run" "--" "--rollback"]}
 
   :main ^:skip-aot whosin.core
   :target-path "target/%s"

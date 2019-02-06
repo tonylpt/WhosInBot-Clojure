@@ -4,8 +4,8 @@
             [clojure.core.match :refer [match]]))
 
 (def ^:private cli-options
-  [["-m" "--db:migrate" "Apply database migrations"]
-   ["-r" "--db:rollback" "Rollback database migrations"]
+  [["-m" "--migrate" "Apply database migrations"]
+   ["-r" "--rollback" "Rollback database migrations"]
    ["-h" "--help"]])
 
 (defn- usage-str ^String [summary]
@@ -24,8 +24,8 @@
 
 (defn parse-args [args]
   (let [{:keys [summary] :as parsed-opts} (cli/parse-opts args cli-options)
-        migrate-flag :db:migrate
-        rollback-flag :db:rollback]
+        migrate-flag :migrate
+        rollback-flag :rollback]
 
     (match [parsed-opts]
            [{:errors ([_ & _] :as errors)}]

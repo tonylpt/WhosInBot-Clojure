@@ -21,7 +21,7 @@ This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot)
         
 5. Apply database migrations:
 
-        lein run -- --db:migrate
+        lein run -- --migrate
         
 6. Run the app locally:
 
@@ -38,7 +38,7 @@ This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot)
     
 3. Apply database migrations:
        
-        java -jar target/uberjar/whosin-0.1.0-SNAPSHOT-standalone.jar --db:migrate
+        java -jar target/uberjar/whosin-0.1.0-SNAPSHOT-standalone.jar --migrate
  
 4. Run the app:        
        
