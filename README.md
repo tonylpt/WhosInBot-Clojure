@@ -1,5 +1,7 @@
 # WhosInBot Clojure
 
+[![Build Status](https://travis-ci.org/tonylpt/whosinbot-clojure.svg?branch=master)](https://travis-ci.org/tonylpt/whosinbot-clojure)
+
 This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot) in Clojure.
 
 
