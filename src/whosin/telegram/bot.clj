@@ -61,11 +61,6 @@
   (h/command-fn command
                 (wrap-handler-fn token handler-fn)))
 
-(defn generic-handler-fn
-  [token]
-  (fn [{{chat-id :id} :chat}]
-    (t/send-text token chat-id "I don't understand that.")))
-
 (defn- bot-api [token]
   (h/handlers (command-fn token "start_roll_call" commands/start-roll-call)
               (command-fn token "end_roll_call" commands/end-roll-call)
@@ -83,8 +78,7 @@
               (command-fn token "set_maybe_for" (commands/set-attendance-for-fn :maybe))
 
               (command-fn token "whos_in" commands/list-responses)
-              (command-fn token "available_commands" commands/available-commands)
-              (h/message-fn (generic-handler-fn token))))
+              (command-fn token "available_commands" commands/available-commands)))
 
 (declare bot)
 (mount/defstate bot
