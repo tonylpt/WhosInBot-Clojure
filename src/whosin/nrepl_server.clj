@@ -6,9 +6,9 @@
 
 (declare server)
 (mount/defstate server
-  :start (let [port (get-in config [:nrepl-server :port])]
+  :start (let [{{:keys [host port] :or {host "localhost"}} :nrepl-server} config]
            (log/infof "Starting nREPL server on port %d" port)
-           (start-server :port port))
+           (start-server :port port :bind host))
 
   :stop (do (stop-server server)
             (log/infof "Stopped nREPL server.")))
