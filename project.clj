@@ -1,6 +1,3 @@
-(defn- uberjar-name []
-  (str "whosin" (some->> (System/getenv "TRAVIS_BUILD_NUMBER") (str "-")) ".jar"))
-
 (defproject whosin "0.1.0"
   :url "https://github.com/tonylpt/whosinbot-clojure"
   :dependencies [[org.clojure/clojure "1.10.0"]
@@ -35,6 +32,6 @@
             "rollback" ["run" "--" "--rollback"]}
 
   :main ^:skip-aot whosin.core
-  :uberjar-name ~(uberjar-name)
+  :uberjar-name "whosin-standalone.jar"
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:main whosin.core, :aot :all}})

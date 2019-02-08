@@ -36,15 +36,15 @@ This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot)
 
         lein uberjar
 
-    The standalone JAR will be saved at `target/uberjar/whosin.jar`.
+    The standalone JAR will be saved at `target/uberjar/whosin-standalone.jar`.
     
 3. Apply database migrations:
        
-        java -jar target/uberjar/whosin.jar --migrate
+        java -jar target/uberjar/whosin-standalone.jar --migrate
  
 4. Run the app:        
        
-        java -jar target/uberjar/whosin.jar
+        java -jar target/uberjar/whosin-standalone.jar
         
          
 ## Usage
