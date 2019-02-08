@@ -34,8 +34,8 @@
 (defn -main
   [& args]
   (match [(cli/parse-args args)]
-         [{:exit msg, :ok? true}] (exit 1 msg)
-         [{:exit msg}] (exit 0 msg)
+         [{:exit msg, :ok? true}] (exit 0 msg)
+         [{:exit msg}] (exit 1 msg)
          [{:action :migrate}] (migrations/migrate-db)
          [{:action :rollback}] (migrations/rollback-db)
          [{:action :start}] (start)
