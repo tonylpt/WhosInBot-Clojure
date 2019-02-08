@@ -1,0 +1,16 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+build:
+  docker:
+    worker: heroku.Dockerfile
+release:
+  image: worker
+  command:
+    - /app/start.sh --migrate
+run:
+  worker:
+    image: worker
+    command:
+      - /app/start.sh
