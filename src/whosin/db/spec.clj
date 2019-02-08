@@ -1,18 +1,20 @@
 (ns whosin.db.spec
   (:require [mount.core :as mount]
             [whosin.config :as config]
-            [hikari-cp.core :as hikari]))
+            [hikari-cp.core :as hikari]
+            [clojure.string :as string]))
+
+(defn- validate-jdbc-url [jdbc-url]
+  ;; only PostgreSQL is supported.
+  (when-not (string/starts-with? (or jdbc-url "") "jdbc:postgresql://")
+    (throw (IllegalArgumentException. "JDBC Url must start with jdbc:postgresql://")))
+  jdbc-url)
 
 (defn- ds-config [{conf :database}]
-  {:adapter           "postgresql"
-   :server-name       (:db-host conf)
-   :port-number       (:db-port conf)
-   :database-name     (:db-name conf)
-   :username          (:username conf)
-   :password          (:password conf)
+  {:jdbc-url          (validate-jdbc-url (:jdbc-url conf))
    :pool-name         (:pool-name conf)
-   :minimum-idle      (:pool-size conf)
-   :maximum-pool-size (:pool-size conf)
+   :minimum-idle      (:pool-size conf "whosin")
+   :maximum-pool-size (:pool-size conf 10)
    :register-mbeans   true})
 
 (declare db-spec)
