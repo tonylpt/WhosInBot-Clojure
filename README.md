@@ -48,7 +48,9 @@ This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot)
         
          
 ## Usage
-Refer to the original [WhosInBot](https://github.com/col/whos_in_bot/blob/master/README.md) for the full description.
+To start using, simply add `@whosincljbot` to a chat group and type `/start_roll_call`. 
+
+Refer to the original [WhosInBot](https://github.com/col/whos_in_bot/blob/master/README.md) for the full usage description.
 
 ### Basic Commands
 - `/start_roll_call` - Start a new roll call
