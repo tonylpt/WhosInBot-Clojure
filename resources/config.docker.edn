@@ -1,0 +1,5 @@
+{:telegram     {:token #env TELEGRAM_TOKEN}
+ :database     {:jdbc-url  #env JDBC_DATABASE_URL
+                :pool-name "whosin"
+                :pool-size 10}
+ :nrepl-server {:port 9011}}
