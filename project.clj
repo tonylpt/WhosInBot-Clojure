@@ -31,6 +31,7 @@
   :aliases {"migrate"  ["run" "--" "--migrate"]
             "rollback" ["run" "--" "--rollback"]}
 
+  :min-lein-version "2.0.0"
   :main ^:skip-aot whosin.core
   :uberjar-name "whosin-standalone.jar"
   :target-path "target/%s"
