@@ -11,11 +11,12 @@
   jdbc-url)
 
 (defn- ds-config [{conf :database}]
-  {:jdbc-url          (validate-jdbc-url (:jdbc-url conf))
-   :pool-name         (:pool-name conf)
-   :minimum-idle      (:pool-size conf "whosin")
-   :maximum-pool-size (:pool-size conf 10)
-   :register-mbeans   true})
+  {:jdbc-url           (validate-jdbc-url (:jdbc-url conf))
+   :pool-name          (:pool-name conf)
+   :minimum-idle       (:pool-size conf "whosin")
+   :maximum-pool-size  (:pool-size conf 10)
+   :connection-timeout (:connection-timeout conf 10000)
+   :register-mbeans    true})
 
 (declare db-spec)
 (mount/defstate db-spec

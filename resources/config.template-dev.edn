@@ -1,5 +1,6 @@
 {:telegram     {:token "-- create your own token --"}
- :database     {:jdbc-url  "jdbc:postgresql://localhost:15432/whosin_dev?user=whosin&password=p@ssw0rd"
-                :pool-name "whosin"
-                :pool-size 10}
+ :database     {:jdbc-url           "jdbc:postgresql://localhost:15432/whosin_dev?user=whosin&password=p@ssw0rd"
+                :pool-name          "whosin"
+                :pool-size          10
+                :connection-timeout 10000}
  :nrepl-server {:port 9011}}
