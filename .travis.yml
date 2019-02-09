@@ -1,5 +1,11 @@
+services:
+  - postgresql
 language: clojure
 lein: lein
+before_script:
+  - cp -f resources/config.travis.edn resources/config.test.edn
+  - psql -c 'create database whosin_test;' -U postgres
+  - ENVIRONMENT=test lein migrate
 script:
   - lein do clean, test
 jdk:

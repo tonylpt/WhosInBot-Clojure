@@ -2,12 +2,14 @@ version: "3"
 
 services:
   db:
-    image: postgres:9.6
+    image: postgres:10.0-alpine
     ports:
       - "15432:5432"
     volumes:
+      - ./bin/local/create-test-database.sh:/docker-entrypoint-initdb.d/create-test-database.sh
       - ./.dbdata://var/lib/postgresql/data
     environment:
       - POSTGRES_DB=whosin_dev
+      - POSTGRES_TEST_DB=whosin_test
       - POSTGRES_USER=whosin
       - POSTGRES_PASSWORD=p@ssw0rd

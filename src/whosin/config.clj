@@ -4,15 +4,16 @@
             [mount.core :as mount]
             [clojure.string :as string]))
 
+(defn load-config [path]
+  (let [url (clojure.java.io/resource path)]
+    (log/infof "Reading configuration from %s ..." url)
+    (read-config url)))
+
 (defn- config-path []
   (cond
-    (System/getenv "CONFIG") (System/getenv "CONFIG")
-    (System/getenv "ENVIRONMENT") (clojure.java.io/resource
-                                    (format "config.%s.edn"
-                                            (string/lower-case (System/getenv "ENVIRONMENT"))))
-    :else (clojure.java.io/resource "config.edn")))
+    (System/getenv "ENVIRONMENT") (format "config.%s.edn" (string/lower-case (System/getenv "ENVIRONMENT")))
+    :else "config.edn"))
 
 (declare config)
 (mount/defstate config
-  :start (do (log/info "Reading configuration...")
-             (read-config (config-path))))
+  :start (load-config (config-path)))

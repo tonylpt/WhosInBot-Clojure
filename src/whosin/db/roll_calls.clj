@@ -56,7 +56,7 @@
   [chat-id title]
   (let [now-ts (util/current-timestamp)]
     (jdbc/with-db-transaction [txn db-spec]
-                              (delete-old-records* txn chat-id records-to-keep)
+                              (delete-old-records* txn chat-id (dec records-to-keep))
                               (close-all-existing* txn chat-id now-ts)
                               (insert-new* txn chat-id title now-ts))))
 
@@ -68,7 +68,8 @@
   (let [now-ts (util/current-timestamp)]
     (->> (close-all-existing* db-spec chat-id now-ts)
          (first)
-         (pos?))))
+         (pos?)
+         (true?))))
 
 (defn- current-roll-call-query
   [chat-id & cols]

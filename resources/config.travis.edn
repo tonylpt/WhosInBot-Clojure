@@ -1,0 +1,6 @@
+{:telegram     {:token "test token"}
+ :database     {:jdbc-url           "jdbc:postgresql://localhost:5432/whosin_test"
+                :pool-name          "whosin"
+                :pool-size          10
+                :connection-timeout 10000}
+ :nrepl-server {:port 9011}}

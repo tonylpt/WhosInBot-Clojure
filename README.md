@@ -12,20 +12,24 @@ This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot)
 
 ## Development
 1. [Create a new Telegram bot](https://core.telegram.org/bots#creating-a-new-bot) and obtain the authorization token.
-2. Copy `resources/config.template-dev.edn` to `resources/config.edn` and fill in the Telegram token.
-3. Run tests:
-
-        lein test
-        
-4. Start the development PostgreSQL:
+2. Copy `resources/config.template-dev.edn` to `resources/config.edn` and fill in the Telegram token.        
+3. Start the development PostgreSQL:
 
         docker-compose up db
         
-5. Apply database migrations:
+4. Apply dev database migrations:
 
-        lein run -- --migrate
+        lein migrate
         
-6. Run the app locally:
+5. Apply test database migrations:
+
+        ENVIRONMENT=test lein migrate
+        
+6. Run tests:
+
+        lein test
+        
+7. Run the app locally:
 
         lein run
         
