@@ -16,4 +16,4 @@ branches:
 deploy:
   provider: heroku
   api_key: $HEROKU_API_KEY
-  app: whosinbot-clojure
+  app: $HEROKU_APP_NAME
