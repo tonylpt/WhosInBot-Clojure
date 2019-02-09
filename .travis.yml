@@ -1,5 +1,5 @@
-services:
-  - postgresql
+addons:
+  postgresql: "9.6"
 language: clojure
 lein: lein
 before_script:
