@@ -14,9 +14,10 @@ RUN lein do clean, uberjar
 FROM openjdk:8-stretch
 MAINTAINER lpthanh@gmail.com
 
-ENV JAVA_OPTS=
 ENV TELEGRAM_TOKEN=
 ENV JDBC_DATABASE_URL=
+ENV JAVA_OPTS=
+ENV SENTRY_DSN=
 
 WORKDIR /app
 

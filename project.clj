@@ -11,6 +11,7 @@
                  [org.slf4j/slf4j-api "1.7.25"]
                  [org.slf4j/jul-to-slf4j "1.7.25"]
                  [ch.qos.logback/logback-classic "1.2.3"]
+                 [io.sentry/sentry-logback "1.7.16"]
                  [digest "1.4.8"]
                  [camel-snake-kebab "0.4.0"]
                  [morse "0.4.0" :exclusions [org.clojure/core.async]]

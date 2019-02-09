@@ -22,14 +22,14 @@
   (mount/stop))
 
 (defn start []
-  (log/info "Starting app ...")
   (mount/start #'config/config
                #'nrepl/server)
 
   (mount/start #'db-spec/db-spec
                #'telegram/bot)
 
-  (add-shutdown-hook stop))
+  (add-shutdown-hook stop)
+  (log/warn "WhosInBot has been started."))
 
 (defn -main
   [& args]
