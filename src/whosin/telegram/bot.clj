@@ -35,6 +35,7 @@
                             :text        message-text})))
 
 (defmacro with-slf4j-mdc
+  "Sets thread-local Slf4j MDC params, scoped within the execution of the body."
   [context-map & body]
   `(try
      (doseq [[k# v#] ~context-map] (MDC/put (name k#) (str v#)))
@@ -42,6 +43,8 @@
      (finally (doseq [[k# _#] ~context-map] (MDC/remove (name k#))))))
 
 (defn- wrap-handler-fn
+  "Returns a Morse message handler, which wraps an internal Command handler in an async block,
+   and automatically sends the Command handler result as a chat reply."
   [^String token command-handler-fn]
   (letfn [(handle ^String [^Command command]
             (try

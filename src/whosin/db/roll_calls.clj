@@ -53,6 +53,9 @@
                  util/jdbc-update-return-opts))
 
 (defn insert-new!
+  "Inserts a new roll call into the database, after cleaning up very old roll calls and
+   closing all existing roll calls for the chat-id.
+   Returns the new inserted record."
   [chat-id title]
   (let [now-ts (util/current-timestamp)]
     (jdbc/with-db-transaction [txn db-spec]
@@ -61,7 +64,7 @@
                               (insert-new* txn chat-id title now-ts))))
 
 (defn close-current!
-  "Close the current roll call if there is any.
+  "Closes the current roll call if there is any.
    Returns true if there was an open call that was closed."
   ^Boolean
   [chat-id]
@@ -90,8 +93,6 @@
        first))
 
 (defn- update-current-attrs!
-  "Update attributes of the current roll call if there is any.
-   Returns the updated record."
   [chat-id attrs]
   (let [now-ts (util/current-timestamp)]
     (jdbc/execute! db-spec
@@ -105,9 +106,13 @@
                    util/jdbc-update-return-opts)))
 
 (defn set-current-title!
+  "Sets title for the currently open roll call.
+   Returns the updated record, or nil if there is no open roll call."
   [chat-id ^String new-title]
   (update-current-attrs! chat-id {:title new-title}))
 
 (defn set-current-quiet!
+  "Changes the quiet setting for the currently open roll call.
+   Returns the updated record, or nil if there is no open roll call."
   [chat-id ^Boolean quiet?]
   (update-current-attrs! chat-id {:quiet quiet?}))

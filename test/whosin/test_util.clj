@@ -18,6 +18,7 @@
              (str "Function " '~fun " was called with different arguments than expected."))))))
 
 (defmacro expect-called
+  "A simple helper macro which asserts that the executed body calls a set of functions with the specified arguments."
   [bindings & body]
   (assert (not-empty bindings)
           "Bindings must be supplied in the form of [[f-1][arg-list-1][ret-1] [f-2][arg-list-2][ret-2]...].")

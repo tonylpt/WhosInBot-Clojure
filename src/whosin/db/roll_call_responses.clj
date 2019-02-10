@@ -63,6 +63,8 @@
                    util/jdbc-update-return-opts)))
 
 (defn set-attendance!
+  "Sets attendance for a user-id, to be called when the user sets their own attendance.
+   This performs an UPSERT which ensures the uniqueness of the setter's user-id for the roll call."
   [roll-call-id ^String status user-id user-name reason]
   (set-attendance* {:roll-call-id roll-call-id
                     :status       status
@@ -75,6 +77,9 @@
                                        (format "self:%s"))}))
 
 (defn set-attendance-for!
+  "Sets attendance for a user-name, to be called when the user sets attendance for
+   another person (the 'settee') by specifying a name. This performs an UPSERT which ensures the
+   uniqueness of the settee's user-name (case-insensitive) for the roll call."
   [roll-call-id ^String status user-name reason]
   (set-attendance* {:roll-call-id roll-call-id
                     :status       status
