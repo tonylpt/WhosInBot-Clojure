@@ -8,7 +8,8 @@
             [whosin.telegram.commands :as commands]
             [mount.core :as mount]
             [clojure.string :as string])
-  (:import (whosin.telegram.commands Command)))
+  (:import (whosin.telegram.commands Command)
+           (org.slf4j MDC)))
 
 (defn- extract-command-arg
   "Extracts part of the message text following the /command."
@@ -33,9 +34,16 @@
                             :command-arg command-arg
                             :text        message-text})))
 
+(defmacro with-slf4j-mdc
+  [context-map & body]
+  `(try
+     (doseq [[k# v#] ~context-map] (MDC/put (name k#) (str v#)))
+     ~@body
+     (finally (doseq [[k# _#] ~context-map] (MDC/remove (name k#))))))
+
 (defn- wrap-handler-fn
   [^String token command-handler-fn]
-  (letfn [(handle [^Command command]
+  (letfn [(handle ^String [^Command command]
             (try
               (command-handler-fn command)
               (catch Throwable e
@@ -47,12 +55,17 @@
                  (catch Throwable e
                    (log/error e "Error sending reply."))))
 
-          (handler-fn-async [morse-msg]
-            (go
-              (let [{:keys [chat-id] :as command} (morse-msg->Command morse-msg)]
+          (handler-fn-sync [morse-msg]
+            (let [{:keys [chat-id user-name text] :as command} (morse-msg->Command morse-msg)
+                  mdc-context {:chat-id chat-id, :user-name user-name, :text text}]
+              (with-slf4j-mdc
+                mdc-context
                 (->> command
                      (handle)
-                     (reply chat-id)))))]
+                     (reply chat-id)))))
+
+          (handler-fn-async [morse-msg]
+            (go (handler-fn-sync morse-msg)))]
 
     handler-fn-async))
 
