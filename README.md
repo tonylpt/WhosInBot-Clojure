@@ -42,9 +42,9 @@ Refer to the original [WhosInBot](https://github.com/col/whos_in_bot/blob/master
 ### Setup
 1. [Create a Telegram bot](https://core.telegram.org/bots#creating-a-new-bot) for development and obtain the authorization token.
 2. Copy `resources/config.template-dev.edn` to `resources/config.edn` and fill in the Telegram token.        
-3. Start the development PostgreSQL with Docker Compose:
+3. Start the development PostgreSQL and Redis with Docker Compose:
 
-        docker-compose up -d db
+        docker-compose up -d
         
    This automatically creates `whosin_dev` and `whosin_test` databases.
    
@@ -87,12 +87,14 @@ Refer to the original [WhosInBot](https://github.com/col/whos_in_bot/blob/master
 ### Notes
 * A basic CI/CD pipeline with [Travis CI](https://travis-ci.org) and [Heroku](https://www.heroku.com) (Worker Dyno) is included.
 * PostgreSQL 9.6 and above is recommended.
+* Redis is required for rate limiting incoming messages.
 
 ### Setup
 1. [Create a Telegram bot](https://core.telegram.org/bots#creating-a-new-bot) for production and obtain the authorization token.
 2. __Optional:__ Create a project on [Sentry](https://sentry.io) and obtain the DSN.
 3. Create a project on [Heroku](https://www.heroku.com) and add `TELEGRAM_TOKEN` and `SENTRY_DSN` as Config Vars with values from step 1 and 2.
-4. Obtain the Heroku API key from [Account Settings](https://dashboard.heroku.com/account).
-5. Set up the project on [Travis CI](https://travis-ci.org) and add `HEROKU_API_KEY` and `HEROKU_APP_NAME` as Environment Variables.
-6. Trigger a new build and deployment from Travis.
-7. Once the deployment completes, go to Heroku Dashboard and enable the Worker Dyno under _Resources_.
+4. Provision PostgreSQL and Redis on Heroku.
+5. Obtain the Heroku API key from [Account Settings](https://dashboard.heroku.com/account).
+6. Set up the project on [Travis CI](https://travis-ci.org) and add `HEROKU_API_KEY` and `HEROKU_APP_NAME` as Environment Variables.
+7. Trigger a new build and deployment from Travis.
+8. Once the deployment completes, go to Heroku Dashboard and enable the Worker Dyno under _Resources_.

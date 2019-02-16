@@ -6,6 +6,7 @@
             [morse.polling :as p]
             [whosin.config :as config]
             [whosin.telegram.commands :as commands]
+            [whosin.rate-limiter :as rate-limiter]
             [mount.core :as mount]
             [clojure.string :as string])
   (:import (whosin.telegram.commands Command)
@@ -58,14 +59,24 @@
                  (catch Throwable e
                    (log/error e "Error sending reply."))))
 
+          (rate-limit [{:keys [chat-id user-id user-name]}]
+            (let [rate-limit-key (format "%s.%s" chat-id user-id)
+                  throttled? (rate-limiter/throttle! rate-limit-key)]
+              (when throttled?
+                (t/send-text token chat-id (format "Slow down, %s \uD83D\uDE30" user-name))
+                (log/infof "User %d is throttled for chat %d" user-id chat-id))
+              throttled?))
+
           (handler-fn-sync [morse-msg]
             (let [{:keys [chat-id user-name text] :as command} (morse-msg->Command morse-msg)
-                  mdc-context {:chat-id chat-id, :user-name user-name, :text text}]
-              (with-slf4j-mdc
-                mdc-context
-                (->> command
-                     (handle)
-                     (reply chat-id)))))
+                  mdc-context {:chat-id chat-id, :user-name user-name, :text text}
+                  throttled? (rate-limit command)]
+              (when-not throttled?
+                (with-slf4j-mdc
+                  mdc-context
+                  (->> command
+                       (handle)
+                       (reply chat-id))))))
 
           (handler-fn-async [morse-msg]
             (go (handler-fn-sync morse-msg)))]

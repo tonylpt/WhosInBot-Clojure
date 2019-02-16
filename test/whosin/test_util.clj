@@ -14,8 +14,10 @@
          ~@body
          (is (true? @called?#)
              (str "Function " '~fun " was not called as expected."))
-         (is (= ~expected-arg-list @captured-args#)
-             (str "Function " '~fun " was called with different arguments than expected."))))))
+
+         (when-not (= :any ~expected-arg-list)
+           (is (= ~expected-arg-list @captured-args#)
+               (str "Function " '~fun " was called with different arguments than expected.")))))))
 
 (defmacro expect-called
   "A simple helper macro which asserts that the executed body calls a set of functions with the specified arguments."

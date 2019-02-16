@@ -13,3 +13,7 @@ services:
       - POSTGRES_TEST_DB=whosin_test
       - POSTGRES_USER=whosin
       - POSTGRES_PASSWORD=p@ssw0rd
+  redis:
+    image: redis
+    ports:
+      - "26379:6379"

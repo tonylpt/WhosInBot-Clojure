@@ -4,6 +4,7 @@
             [morse.api :as t]
             [whosin.telegram.bot :as bot]
             [whosin.telegram.commands :as commands]
+            [whosin.rate-limiter :as rate-limiter]
             [whosin.test-util :refer :all]))
 
 (def extract-command-arg #'bot/extract-command-arg)
@@ -45,7 +46,8 @@
 (deftest wrap-handler-fn-test
   (testing "returns an async Morse handler that sends reply from wrapped Command handler"
     (expect-called
-      [t/send-text ["tg-token" 22222222 "command reply"] nil]
+      [rate-limiter/throttle! :any false
+       t/send-text ["tg-token" 22222222 "command reply"] nil]
       (let [expected-command (morse-msg->Command sample-message)
             command-handler-fn (fn [command]
                                  (is (= expected-command command))
@@ -57,8 +59,17 @@
   (testing "returns an async Morse handler that sends error reply when wrapped Command handler throws Exception"
     (with-no-log
       (expect-called
-        [t/send-text ["tg-token" 22222222 "An error has occurred."] nil]
+        [rate-limiter/throttle! :any false
+         t/send-text ["tg-token" 22222222 "An error has occurred."] nil]
         (let [command-handler-fn (fn [_] (throw (Exception. "test error")))
               morse-handler-fn (wrap-handler-fn "tg-token" command-handler-fn)
               result-chan (morse-handler-fn sample-message)]
-          (<!! result-chan))))))
+          (<!! result-chan)))))
+
+  (testing "returns an async Morse handler that rate-limits by user-id and chat-id"
+    (expect-called
+      [rate-limiter/throttle! ["22222222.11111111"] true
+       t/send-text ["tg-token" 22222222 "Slow down, First Name \uD83D\uDE30"] nil]
+      (let [command-handler-fn (fn [& _] (throw (ex-info "Should not be called" {})))
+            morse-handler-fn (wrap-handler-fn "tg-token" command-handler-fn)]
+        (<!! (morse-handler-fn sample-message))))))

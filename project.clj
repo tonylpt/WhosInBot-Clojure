@@ -18,6 +18,7 @@
                  [aero "1.1.3"]
                  [mount "0.1.16"]
                  [ragtime "0.8.0"]
+                 [com.taoensso/carmine "2.19.1"]
                  [com.zaxxer/HikariCP "3.3.0"]
                  [org.postgresql/postgresql "42.2.5"]
                  [hikari-cp "2.6.0" :exclusions [org.postgresql/postgresql com.zaxxer/HikariCP]]

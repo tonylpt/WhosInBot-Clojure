@@ -3,4 +3,9 @@
                 :pool-name          "whosin"
                 :pool-size          10
                 :connection-timeout 10000}
+ :rate-limiter {:rate-limit        10
+                :rate-limit-window 60
+                :redis             {:uri               "redis://localhost:26379/1"
+                                    :maximum-pool-size 10
+                                    :minimum-idle      5}}
  :nrepl-server {:port 9011}}

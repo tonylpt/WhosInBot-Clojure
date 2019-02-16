@@ -6,6 +6,7 @@
             [whosin.config :as config]
             [whosin.telegram.bot :as telegram]
             [whosin.db.spec :as db-spec]
+            [whosin.rate-limiter :as rate-limiter]
             [clojure.tools.logging :as log]
             [mount.core :as mount])
   (:gen-class))
@@ -26,6 +27,7 @@
                #'nrepl/server)
 
   (mount/start #'db-spec/db-spec
+               #'rate-limiter/redis-conn-pool
                #'telegram/bot)
 
   (add-shutdown-hook stop)
