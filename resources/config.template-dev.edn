@@ -4,7 +4,7 @@
                 :pool-size          10
                 :connection-timeout 10000}
  :rate-limiter {:rate-limit        10
-                :rate-limit-window 60
+                :rate-limit-window 10
                 :redis             {:uri               "redis://localhost:26379/1"
                                     :maximum-pool-size 10
                                     :minimum-idle      5}}
