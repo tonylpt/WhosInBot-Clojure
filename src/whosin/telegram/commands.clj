@@ -126,7 +126,7 @@
     (let [{:keys [name reason]} (->name-and-reason command-arg)]
       (cond
         (string/blank? name)
-        "Please provide the persons name."
+        "Please provide the person's name."
 
         (nil? (domain/set-roll-call-attendance-for! chat-id attendance name reason))
         no-roll-call-available

@@ -188,7 +188,7 @@
                                                         :user-id     5678
                                                         :user-name   "user"
                                                         :command-arg ""})]
-      (is (= "Please provide the persons name." result))))
+      (is (= "Please provide the person's name." result))))
 
   (testing "when there is no open roll call"
     (expect-called
