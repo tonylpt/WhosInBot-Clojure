@@ -4,6 +4,8 @@
 
 This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot) in Clojure.
 
+Check out the Scala version [here](https://github.com/tonylpt/WhosInBot-Scala).
+
 
 ## Usage
 An instance of this Telegram bot has been deployed and running. To start using, simply add `@whosincljbot` to a group chat and type `/start_roll_call`. 
