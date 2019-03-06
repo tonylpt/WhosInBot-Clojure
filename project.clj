@@ -36,6 +36,8 @@
             "rollback" ["run" "--" "--rollback"]}
 
   :cloverage {:ns-exclude-regex [#"whosin\.db\.migrations"
+                                 #"whosin\.db\.spec"
+                                 #"whosin\.config"
                                  #"whosin\.nrepl-server"
                                  #"whosin\.core"]}
 
