@@ -27,11 +27,17 @@
                  [nilenso/honeysql-postgres "0.2.5"]
                  [pjstadig/humane-test-output "0.8.2"]]
 
+  :plugins [[lein-cloverage "1.1.0"]]
+
   :injections [(require 'pjstadig.humane-test-output)
                (pjstadig.humane-test-output/activate!)]
 
   :aliases {"migrate"  ["run" "--" "--migrate"]
             "rollback" ["run" "--" "--rollback"]}
+
+  :cloverage {:ns-exclude-regex [#"whosin\.db\.migrations"
+                                 #"whosin\.nrepl-server"
+                                 #"whosin\.core"]}
 
   :min-lein-version "2.0.0"
   :main ^:skip-aot whosin.core
