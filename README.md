@@ -1,7 +1,7 @@
 # WhosInBot Clojure
 
 [![Build Status](https://travis-ci.org/tonylpt/WhosInBot-Clojure.svg?branch=master)](https://travis-ci.org/tonylpt/WhosInBot-Clojure)
-[![codecov](https://codecov.io/gh/tonylpt/WhosInBot-Clojure/branch/master/graph/badge.svg)](https://codecov.io/gh/tonylpt/WhosInBot-Clojure)
+[![codecov](https://img.shields.io/codecov/c/github/tonylpt/WhosInBot-Clojure.svg)](https://codecov.io/gh/tonylpt/WhosInBot-Clojure)
 
 This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot) in Clojure.
 
