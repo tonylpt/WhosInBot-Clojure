@@ -7,11 +7,12 @@
             [whosin.rate-limiter :as rate-limiter]))
 
 (defn with-redis [f]
-  (-> (only #{#'config/config
-              #'rate-limiter/redis-conn-pool})
-      (swap {#'config/config (config/load-config "config.test.edn")})
-      (start))
-  (f))
+  (let [states (-> (only #{#'config/config
+                           #'rate-limiter/redis-conn-pool})
+                   (swap {#'config/config (config/load-config "config.test.edn")}))]
+    (start states)
+    (f)
+    (stop states)))
 
 (defn clear-redis []
   (log/info "Cleaning up redis...")
