@@ -1,11 +1,11 @@
-# WhosInBot Clojure
+# WhosInBot - Clojure
 
 [![Build Status](https://travis-ci.org/tonylpt/WhosInBot-Clojure.svg?branch=master)](https://travis-ci.org/tonylpt/WhosInBot-Clojure)
 [![codecov](https://img.shields.io/codecov/c/github/tonylpt/WhosInBot-Clojure.svg)](https://codecov.io/gh/tonylpt/WhosInBot-Clojure)
 
 This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot) in Clojure.
 
-Check out the Scala version [here](https://github.com/tonylpt/WhosInBot-Scala).
+Check out the [Scala](https://github.com/tonylpt/WhosInBot-Scala) and [Rust](https://github.com/tonylpt/WhosInBot-Rust) versions.
 
 
 ## Usage
