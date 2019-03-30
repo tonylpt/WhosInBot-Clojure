@@ -5,7 +5,7 @@
 
 This is an implementation of the [WhosInBot](https://github.com/col/whos_in_bot) in Clojure.
 
-Check out the [Scala](https://github.com/tonylpt/WhosInBot-Scala) and [Rust](https://github.com/tonylpt/WhosInBot-Rust) versions.
+Check out the [Scala](https://github.com/tonylpt/WhosInBot-Scala), [Rust](https://github.com/tonylpt/WhosInBot-Rust), and Col's original [Elixir](https://github.com/col/whos_in_bot) and [Go](https://github.com/col/whosinbot) versions.
 
 
 ## Usage
